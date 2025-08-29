@@ -1,0 +1,25 @@
+# GitHub Pages Configuration for HabbitZ Kids Vocabulary App
+
+# Theme (optional - using default)
+theme: minima
+
+# Site settings
+title: "HabbitZ Kids Vocabulary"
+description: "Interactive vocabulary learning app for young minds"
+author: "HabbitZ Educational Team"
+
+# GitHub Pages settings
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+# Include these files in the build
+include:
+  - "_*_.html"
+  - "_*_.md"
+
+# Exclude files from processing
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock

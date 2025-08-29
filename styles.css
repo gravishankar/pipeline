@@ -1,0 +1,907 @@
+/* HabbitZ Kids Vocabulary App Styles */
+
+/* CSS Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+    overflow-x: hidden;
+}
+
+/* Loading Screen */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.loading-content {
+    text-align: center;
+    color: white;
+}
+
+.loading-logo {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    animation: bounce 2s infinite;
+}
+
+.loading-content h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(255,255,255,0.3);
+    border-top: 4px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 1rem auto;
+}
+
+.loading-content p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+/* App Container */
+.app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+/* Header */
+.app-header {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 1rem 2rem;
+    border-radius: 0 0 20px 20px;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.app-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2rem;
+    color: #667eea;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.logo-emoji {
+    font-size: 1.5rem;
+    margin: 0 0.5rem;
+}
+
+.header-stats {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    color: #555;
+    background: rgba(102, 126, 234, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+}
+
+.stat-icon {
+    font-size: 1.2rem;
+}
+
+/* Main Menu */
+.main-menu {
+    padding: 2rem;
+}
+
+.menu-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.menu-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.5rem;
+    text-align: center;
+    color: white;
+    margin-bottom: 3rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.game-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.game-btn {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+    border: none;
+    border-radius: 20px;
+    padding: 2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    color: white;
+}
+
+.game-btn:nth-child(2) {
+    background: linear-gradient(135deg, #4ecdc4, #44a08d);
+}
+
+.game-btn:nth-child(3) {
+    background: linear-gradient(135deg, #45b7d1, #96c93d);
+}
+
+.game-btn:nth-child(4) {
+    background: linear-gradient(135deg, #f093fb, #f5576c);
+}
+
+.game-btn:nth-child(5) {
+    background: linear-gradient(135deg, #fad0c4, #ffd1ff);
+    color: #333;
+}
+
+.game-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+}
+
+.btn-emoji {
+    font-size: 3rem;
+    min-width: 60px;
+}
+
+.btn-text {
+    text-align: left;
+}
+
+.btn-text strong {
+    display: block;
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+}
+
+.btn-text small {
+    display: block;
+    opacity: 0.9;
+    font-size: 0.9rem;
+}
+
+/* Daily Word */
+.daily-word {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.daily-word h3 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.8rem;
+    color: #667eea;
+    margin-bottom: 1rem;
+}
+
+.daily-word-card {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 15px;
+    padding: 1.5rem;
+    color: white;
+}
+
+.daily-word-text {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.daily-word-definition {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+}
+
+.daily-word-memory {
+    font-size: 1rem;
+    opacity: 0.8;
+    font-style: italic;
+}
+
+/* Game Screens */
+.game-screen {
+    padding: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.back-btn {
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 10px;
+    padding: 0.8rem 1.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #667eea;
+    transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+    background: white;
+    transform: translateY(-2px);
+}
+
+.game-header h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2rem;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.game-progress {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    color: #667eea;
+}
+
+/* Question Cards */
+.question-card, .memory-card, .builder-card, .story-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.question-card h3, .memory-card h3, .builder-card h3 {
+    font-size: 1.5rem;
+    color: #667eea;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.target-word {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #ff6b6b;
+    text-align: center;
+    margin: 2rem 0;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.definition-choices {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.choice-btn {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border: 3px solid transparent;
+    border-radius: 15px;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    text-align: left;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.choice-btn:hover {
+    border-color: #667eea;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+.choice-btn.correct {
+    background: linear-gradient(135deg, #d4edda, #a3d977);
+    border-color: #28a745;
+    color: #155724;
+}
+
+.choice-btn.incorrect {
+    background: linear-gradient(135deg, #f8d7da, #f5a3a3);
+    border-color: #dc3545;
+    color: #721c24;
+}
+
+.choice-btn.disabled {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+/* Memory Helper Styles */
+.memory-helper-text {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 2rem;
+    border-radius: 15px;
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.definition-hint {
+    background: rgba(102, 126, 234, 0.1);
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    font-style: italic;
+    text-align: center;
+}
+
+.word-input-area {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.word-input-area input {
+    padding: 1rem 1.5rem;
+    border: 3px solid #e9ecef;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    min-width: 200px;
+    text-align: center;
+    transition: border-color 0.3s ease;
+}
+
+.word-input-area input:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.check-btn, .next-btn, .clear-btn {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.check-btn:hover, .next-btn:hover, .clear-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+.clear-btn {
+    background: linear-gradient(135deg, #6c757d, #5a6268);
+}
+
+/* Word Builder Styles */
+.word-construction {
+    text-align: center;
+}
+
+.letter-slots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+}
+
+.letter-slot {
+    width: 60px;
+    height: 60px;
+    border: 3px dashed #ccc;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    background: #f8f9fa;
+    transition: all 0.3s ease;
+}
+
+.letter-slot.filled {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border-color: #667eea;
+}
+
+.letter-slot.highlight {
+    border-color: #ff6b6b;
+    background: rgba(255, 107, 107, 0.1);
+}
+
+.available-letters {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.letter-btn {
+    width: 50px;
+    height: 50px;
+    border: 2px solid #667eea;
+    border-radius: 10px;
+    background: white;
+    color: #667eea;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.letter-btn:hover {
+    background: #667eea;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.letter-btn.used {
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+/* Story Mode Styles */
+.story-content {
+    line-height: 1.8;
+}
+
+.story-text {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    padding: 2rem;
+    background: rgba(102, 126, 234, 0.05);
+    border-radius: 15px;
+    border-left: 5px solid #667eea;
+}
+
+.story-word {
+    background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+    color: white;
+    padding: 0.2rem 0.5rem;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.story-question h4 {
+    color: #667eea;
+    margin-bottom: 1rem;
+}
+
+.story-choices {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+/* Game Controls */
+.game-controls {
+    text-align: center;
+}
+
+.feedback-area {
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.feedback-message {
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.feedback-correct {
+    background: linear-gradient(135deg, #d4edda, #a3d977);
+    color: #155724;
+}
+
+.feedback-incorrect {
+    background: linear-gradient(135deg, #f8d7da, #f5a3a3);
+    color: #721c24;
+}
+
+/* Progress Screen */
+.progress-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.progress-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.progress-card h3 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.8rem;
+    color: #667eea;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.achievement-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.achievement-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border-radius: 15px;
+    border: 2px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.achievement-item:hover {
+    border-color: #667eea;
+    transform: translateY(-3px);
+}
+
+.achievement-icon {
+    font-size: 2rem;
+}
+
+.achievement-text strong {
+    display: block;
+    font-size: 1.5rem;
+    color: #667eea;
+}
+
+.achievement-text small {
+    color: #6c757d;
+}
+
+.progress-bar-container {
+    margin: 1rem 0;
+}
+
+.progress-bar-container label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #667eea;
+}
+
+.progress-bar {
+    background: #e9ecef;
+    border-radius: 20px;
+    height: 20px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.progress-fill {
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    height: 100%;
+    border-radius: 20px;
+    transition: width 0.5s ease;
+    width: 0%;
+}
+
+.badges-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem;
+}
+
+.badge {
+    text-align: center;
+    padding: 1rem;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.badge.earned {
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    color: #333;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+}
+
+.badge.locked {
+    background: #f8f9fa;
+    color: #6c757d;
+    border: 2px dashed #dee2e6;
+}
+
+.badge-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.badge-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    animation: modalSlideIn 0.3s ease;
+}
+
+.modal-header h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2rem;
+    color: #667eea;
+    margin-bottom: 2rem;
+}
+
+.results-summary {
+    margin: 2rem 0;
+}
+
+.result-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1rem 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.result-icon {
+    font-size: 1.5rem;
+}
+
+.encouragement-message {
+    font-size: 1.3rem;
+    color: #667eea;
+    margin: 2rem 0;
+    font-weight: 600;
+}
+
+.modal-footer {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.play-again-btn, .continue-btn {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.play-again-btn:hover, .continue-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+.continue-btn {
+    background: linear-gradient(135deg, #28a745, #20c997);
+}
+
+/* Animations */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header-content {
+        justify-content: center;
+        text-align: center;
+    }
+    
+    .app-title {
+        font-size: 1.5rem;
+    }
+    
+    .header-stats {
+        justify-content: center;
+    }
+    
+    .menu-title {
+        font-size: 2rem;
+    }
+    
+    .game-buttons {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .game-btn {
+        padding: 1.5rem;
+    }
+    
+    .btn-emoji {
+        font-size: 2.5rem;
+    }
+    
+    .btn-text strong {
+        font-size: 1.2rem;
+    }
+    
+    .definition-choices {
+        grid-template-columns: 1fr;
+    }
+    
+    .word-input-area {
+        flex-direction: column;
+    }
+    
+    .word-input-area input {
+        min-width: 100%;
+    }
+    
+    .achievement-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+    
+    .modal-content {
+        width: 95%;
+        padding: 1.5rem;
+    }
+    
+    .modal-footer {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    .app-header {
+        padding: 1rem;
+    }
+    
+    .main-menu, .game-screen {
+        padding: 1rem;
+    }
+    
+    .question-card, .memory-card, .builder-card, .story-card {
+        padding: 1.5rem;
+    }
+    
+    .target-word {
+        font-size: 2rem;
+    }
+    
+    .letter-slots {
+        gap: 0.25rem;
+    }
+    
+    .letter-slot {
+        width: 45px;
+        height: 45px;
+        font-size: 1.2rem;
+    }
+    
+    .available-letters .letter-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+    
+    .achievement-grid {
+        grid-template-columns: 1fr;
+    }
+}
