@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HabbitZ Kids Vocabulary - Fun Learning Adventures!</title>
+    <meta name="description" content="Interactive vocabulary learning app for kids with games, memory aids, and progress tracking">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">📚</div>
+            <h1>HabbitZ Kids Vocabulary</h1>
+            <div class="loading-spinner"></div>
+            <p>Loading your vocabulary adventure...</p>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div id="app" class="app-container" style="display: none;">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1 class="app-title">
+                    <span class="logo-emoji">📚</span>
+                    HabbitZ Kids Vocabulary
+                    <span class="logo-emoji">🌟</span>
+                </h1>
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <span class="stat-icon">🎯</span>
+                        <span>Score: <span id="total-score">0</span></span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">⭐</span>
+                        <span>Streak: <span id="streak">0</span></span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">🏆</span>
+                        <span>Level: <span id="level">1</span></span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Menu -->
+        <div id="main-menu" class="main-menu">
+            <div class="menu-content">
+                <h2 class="menu-title">Choose Your Adventure! 🚀</h2>
+                <div class="game-buttons">
+                    <button class="game-btn" data-game="definition-match">
+                        <span class="btn-emoji">🎯</span>
+                        <span class="btn-text">
+                            <strong>Definition Match</strong>
+                            <small>Match words with their meanings</small>
+                        </span>
+                    </button>
+                    
+                    <button class="game-btn" data-game="memory-helper">
+                        <span class="btn-emoji">🧠</span>
+                        <span class="btn-text">
+                            <strong>Memory Helper</strong>
+                            <small>Use memory tricks to learn</small>
+                        </span>
+                    </button>
+                    
+                    <button class="game-btn" data-game="word-builder">
+                        <span class="btn-emoji">🏗️</span>
+                        <span class="btn-text">
+                            <strong>Word Builder</strong>
+                            <small>Build words from letters</small>
+                        </span>
+                    </button>
+                    
+                    <button class="game-btn" data-game="story-mode">
+                        <span class="btn-emoji">📖</span>
+                        <span class="btn-text">
+                            <strong>Story Mode</strong>
+                            <small>Learn through stories</small>
+                        </span>
+                    </button>
+                    
+                    <button class="game-btn" data-game="progress">
+                        <span class="btn-emoji">📊</span>
+                        <span class="btn-text">
+                            <strong>My Progress</strong>
+                            <small>See how much you've learned</small>
+                        </span>
+                    </button>
+                </div>
+                
+                <div class="daily-word">
+                    <h3>🌟 Word of the Day</h3>
+                    <div id="daily-word-card" class="daily-word-card">
+                        <div class="daily-word-content">
+                            <div class="daily-word-text" id="daily-word">Loading...</div>
+                            <div class="daily-word-definition" id="daily-definition">Loading...</div>
+                            <div class="daily-word-memory" id="daily-memory">Loading...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Screens -->
+        <!-- Definition Match Game -->
+        <div id="definition-match-game" class="game-screen" style="display: none;">
+            <div class="game-header">
+                <button class="back-btn" onclick="showMainMenu()">← Back</button>
+                <h2>🎯 Definition Match</h2>
+                <div class="game-progress">
+                    <span id="dm-question-count">Question 1/10</span>
+                </div>
+            </div>
+            
+            <div class="game-content">
+                <div class="question-card">
+                    <h3>What does this word mean?</h3>
+                    <div class="target-word" id="dm-target-word">Loading...</div>
+                    <div class="definition-choices" id="dm-choices">
+                        <!-- Choices will be populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="game-controls">
+                    <div class="feedback-area" id="dm-feedback"></div>
+                    <button id="dm-next-btn" class="next-btn" style="display: none;">Next Question →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Memory Helper Game -->
+        <div id="memory-helper-game" class="game-screen" style="display: none;">
+            <div class="game-header">
+                <button class="back-btn" onclick="showMainMenu()">← Back</button>
+                <h2>🧠 Memory Helper</h2>
+                <div class="game-progress">
+                    <span id="mh-question-count">Question 1/10</span>
+                </div>
+            </div>
+            
+            <div class="game-content">
+                <div class="memory-card">
+                    <h3>Use the memory helper to guess the word!</h3>
+                    <div class="memory-helper-text" id="mh-memory-text">Loading...</div>
+                    <div class="definition-hint" id="mh-definition">Loading...</div>
+                    
+                    <div class="word-input-area">
+                        <input type="text" id="mh-word-input" placeholder="Type the word here..." maxlength="20">
+                        <button id="mh-check-btn" class="check-btn">Check Answer!</button>
+                    </div>
+                </div>
+                
+                <div class="game-controls">
+                    <div class="feedback-area" id="mh-feedback"></div>
+                    <button id="mh-next-btn" class="next-btn" style="display: none;">Next Word →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Word Builder Game -->
+        <div id="word-builder-game" class="game-screen" style="display: none;">
+            <div class="game-header">
+                <button class="back-btn" onclick="showMainMenu()">← Back</button>
+                <h2>🏗️ Word Builder</h2>
+                <div class="game-progress">
+                    <span id="wb-question-count">Word 1/10</span>
+                </div>
+            </div>
+            
+            <div class="game-content">
+                <div class="builder-card">
+                    <h3>Build the word that matches this definition:</h3>
+                    <div class="definition-text" id="wb-definition">Loading...</div>
+                    
+                    <div class="word-construction">
+                        <div class="letter-slots" id="wb-letter-slots">
+                            <!-- Letter slots will be populated by JavaScript -->
+                        </div>
+                        
+                        <div class="available-letters" id="wb-available-letters">
+                            <!-- Available letters will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="game-controls">
+                    <div class="feedback-area" id="wb-feedback"></div>
+                    <button id="wb-clear-btn" class="clear-btn">Clear</button>
+                    <button id="wb-next-btn" class="next-btn" style="display: none;">Next Word →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Story Mode -->
+        <div id="story-mode-game" class="game-screen" style="display: none;">
+            <div class="game-header">
+                <button class="back-btn" onclick="showMainMenu()">← Back</button>
+                <h2>📖 Story Mode</h2>
+                <div class="game-progress">
+                    <span id="sm-progress">Story 1/5</span>
+                </div>
+            </div>
+            
+            <div class="game-content">
+                <div class="story-card">
+                    <div class="story-content">
+                        <div class="story-text" id="sm-story-text">Loading story...</div>
+                        <div class="story-question">
+                            <h4>What does the highlighted word mean?</h4>
+                            <div class="story-choices" id="sm-choices">
+                                <!-- Story choices will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="game-controls">
+                    <div class="feedback-area" id="sm-feedback"></div>
+                    <button id="sm-next-btn" class="next-btn" style="display: none;">Next Story →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Screen -->
+        <div id="progress-screen" class="game-screen" style="display: none;">
+            <div class="game-header">
+                <button class="back-btn" onclick="showMainMenu()">← Back</button>
+                <h2>📊 My Progress</h2>
+            </div>
+            
+            <div class="progress-content">
+                <div class="progress-summary">
+                    <div class="progress-card">
+                        <h3>🌟 Your Achievements</h3>
+                        <div class="achievement-grid">
+                            <div class="achievement-item">
+                                <div class="achievement-icon">🎯</div>
+                                <div class="achievement-text">
+                                    <strong id="total-words-learned">0</strong>
+                                    <small>Words Learned</small>
+                                </div>
+                            </div>
+                            <div class="achievement-item">
+                                <div class="achievement-icon">⭐</div>
+                                <div class="achievement-text">
+                                    <strong id="best-streak">0</strong>
+                                    <small>Best Streak</small>
+                                </div>
+                            </div>
+                            <div class="achievement-item">
+                                <div class="achievement-icon">🏆</div>
+                                <div class="achievement-text">
+                                    <strong id="total-points">0</strong>
+                                    <small>Total Points</small>
+                                </div>
+                            </div>
+                            <div class="achievement-item">
+                                <div class="achievement-icon">⚡</div>
+                                <div class="achievement-text">
+                                    <strong id="games-played">0</strong>
+                                    <small>Games Played</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-card">
+                        <h3>📈 Learning Progress</h3>
+                        <div class="progress-bar-container">
+                            <label>Overall Progress</label>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="overall-progress"></div>
+                            </div>
+                            <span id="progress-percentage">0%</span>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-card">
+                        <h3>🏅 Badges Earned</h3>
+                        <div class="badges-grid" id="badges-grid">
+                            <!-- Badges will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Modal -->
+        <div id="results-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="results-title">Game Complete! 🎉</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="results-summary">
+                        <div class="result-item">
+                            <span class="result-icon">🎯</span>
+                            <span class="result-text">Score: <span id="final-score">0/10</span></span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-icon">⭐</span>
+                            <span class="result-text">Stars: <span id="stars-earned">⭐⭐⭐</span></span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-icon">🏆</span>
+                            <span class="result-text">Points: <span id="points-earned">+50</span></span>
+                        </div>
+                    </div>
+                    <div class="encouragement-message" id="encouragement-message">
+                        Great job! Keep learning! 🌟
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="play-again-btn" onclick="showMainMenu()">Play Again</button>
+                    <button class="continue-btn" onclick="showMainMenu()">Main Menu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Files -->
+    <script src="vocabulary_data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
