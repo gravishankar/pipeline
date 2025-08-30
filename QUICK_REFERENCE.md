@@ -3,26 +3,41 @@
 ## 🚀 **Instant Commands**
 
 ```bash
-# 1. Show database overview
+# 1. Show RobertsGuide database overview (365 words)
 python3 show_vocabulary.py
 
-# 2. Interactive explorer
+# 2. Interactive explorer for RobertsGuide
 python3 query_vocabulary.py
 
-# 3. Direct database access
-sqlite3 vocabulary.db -header -column
+# 3. Export main database with 500-word splits (11,107 words)
+python3 export_main_database.py
+
+# 4. Direct database access
+sqlite3 vocabulary.db -header -column          # RobertsGuide (365 words)
+sqlite3 ../vocab.db -header -column           # Main database (11,107 words)
 ```
 
 ## 🔢 **Essential Counts**
+
+### **RobertsGuide Database (365 words)**
 ```bash
 # Total words
 sqlite3 vocabulary.db "SELECT COUNT(*) FROM vocabulary;"
 
-# Words by source
-sqlite3 vocabulary.db "SELECT source, COUNT(*) FROM vocabulary GROUP BY source;"
-
-# Words by part of speech
+# Words by part of speech  
 sqlite3 vocabulary.db "SELECT part_of_speech, COUNT(*) FROM vocabulary GROUP BY part_of_speech;"
+```
+
+### **Main Database (11,107 words)**
+```bash
+# Total words
+sqlite3 ../vocab.db "SELECT COUNT(*) FROM words;"
+
+# Words by difficulty
+sqlite3 ../vocab.db "SELECT difficulty_band, COUNT(*) FROM words GROUP BY difficulty_band;"
+
+# Words by source
+sqlite3 ../vocab.db "SELECT s.source_name, COUNT(*) FROM words w LEFT JOIN sources s ON w.first_seen_source_id = s.id GROUP BY s.source_name;"
 ```
 
 ## 🔤 **Word Lists**

@@ -28,17 +28,58 @@ python3 show_vocabulary.py
 python3 query_vocabulary.py
 ```
 
-### **Method 3: Direct SQLite Commands**
+### **Method 3: Export Main Database (11,107 words)**
 ```bash
-# Access database directly
+# Export complete main database with 500-word splits
+python3 export_main_database.py
+```
+
+### **Method 4: Direct SQLite Commands**
+```bash
+# Access RobertsGuide database (365 words)
 sqlite3 vocabulary.db
+
+# Access main vocabulary database (11,107 words) 
+sqlite3 ../vocab.db
 ```
 
 ---
 
 ## 📊 **Database Overview**
 
-### **Database Schema**
+### **Two Database Systems**
+
+#### **1. Main Vocabulary Database (`../vocab.db`)**
+- **Total Words**: 11,107+ sophisticated vocabulary words
+- **Schema**: Advanced multi-table structure with relationships
+- **Sources**: Multiple CSV files, PDFs, and curated collections
+
+```sql
+CREATE TABLE words (
+    id INTEGER PRIMARY KEY,
+    lemma TEXT UNIQUE NOT NULL,  -- Canonical lowercase form
+    display TEXT,  -- Original casing if different
+    pos TEXT,  -- Part of speech
+    difficulty_band TEXT CHECK (difficulty_band IN ('easy', 'medium', 'hard', 'level_1', 'level_2', 'level_3', 'SAT', 'PSAT')),
+    frequency_rank INTEGER,
+    first_seen_source_id INTEGER,
+    created_at TEXT DEFAULT (datetime('now')),
+    updated_at TEXT DEFAULT (datetime('now')),
+    FOREIGN KEY (first_seen_source_id) REFERENCES sources(id)
+);
+```
+
+**Difficulty Distribution:**
+- **level_1**: 6,662 words (60%)
+- **SAT**: 3,469 words (31%) 
+- **hard**: 839 words (8%)
+- **unspecified**: 137 words (1%)
+
+#### **2. RobertsGuide Database (`vocabulary.db`)**
+- **Total Words**: 365 advanced vocabulary words
+- **Quality Score**: 4.0/5 (High quality)
+- **Schema**: Simple single-table structure
+
 ```sql
 CREATE TABLE vocabulary (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -53,9 +94,6 @@ CREATE TABLE vocabulary (
     quality_score INTEGER DEFAULT 3
 );
 ```
-
-### **Current Data Sources**
-- **RobertsGuide**: 365 advanced vocabulary words (Quality: 4/5)
 
 ---
 
@@ -135,6 +173,58 @@ Found 2 matches
 🔹 ambiguous (adj) - [RobertsGuide]
    Open to multiple interpretations.
    Example: "Her response was ambiguous and left room for doubt."
+```
+
+---
+
+## 🔍 **Main Database Queries (11,107 Words)**
+
+### **Quick Statistics**
+```bash
+# Total word count
+sqlite3 ../vocab.db "SELECT COUNT(*) FROM words;"
+
+# Words by difficulty
+sqlite3 ../vocab.db "SELECT difficulty_band, COUNT(*) FROM words GROUP BY difficulty_band;"
+
+# Words by source
+sqlite3 ../vocab.db "SELECT s.source_name, COUNT(*) FROM words w LEFT JOIN sources s ON w.first_seen_source_id = s.id GROUP BY s.source_name ORDER BY COUNT(*) DESC;"
+```
+
+### **Word Lists from Main Database**
+```bash
+# First 100 SAT words
+sqlite3 ../vocab.db -header -column "SELECT lemma, display, pos, difficulty_band FROM words WHERE difficulty_band = 'SAT' ORDER BY lemma LIMIT 100;"
+
+# Level 1 words (easiest)
+sqlite3 ../vocab.db -header -column "SELECT lemma, display, pos FROM words WHERE difficulty_band = 'level_1' ORDER BY lemma LIMIT 50;"
+
+# Hard difficulty words
+sqlite3 ../vocab.db -header -column "SELECT lemma, display, pos FROM words WHERE difficulty_band = 'hard' ORDER BY lemma;"
+```
+
+### **Search Main Database**
+```bash
+# Find words containing specific letters
+sqlite3 ../vocab.db "SELECT lemma, pos, difficulty_band FROM words WHERE lemma LIKE '%tion%' ORDER BY lemma;"
+
+# Words from specific source
+sqlite3 ../vocab.db "SELECT w.lemma, w.pos FROM words w LEFT JOIN sources s ON w.first_seen_source_id = s.id WHERE s.source_name LIKE '%sesame%';"
+
+# Words with frequency rank (most common words)
+sqlite3 ../vocab.db "SELECT lemma, frequency_rank, difficulty_band FROM words WHERE frequency_rank IS NOT NULL ORDER BY frequency_rank LIMIT 100;"
+```
+
+### **Export Specific Subsets**
+```bash
+# Export all SAT words to CSV
+sqlite3 ../vocab.db -header -csv "SELECT lemma, display, pos, difficulty_band FROM words WHERE difficulty_band = 'SAT' ORDER BY lemma;" > sat_words.csv
+
+# Export Level 1 words in batches of 500
+sqlite3 ../vocab.db -header -csv "SELECT lemma, display, pos FROM words WHERE difficulty_band = 'level_1' ORDER BY lemma LIMIT 500;" > level1_batch1.csv
+
+# Export by source
+sqlite3 ../vocab.db -header -csv "SELECT w.lemma, w.display, w.pos, w.difficulty_band FROM words w LEFT JOIN sources s ON w.first_seen_source_id = s.id WHERE s.source_name = 'sesamewords_leveled_list_with_mnemonics.csv' ORDER BY w.lemma;" > sesame_words.csv
 ```
 
 ---
